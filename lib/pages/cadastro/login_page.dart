@@ -72,11 +72,20 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 const SizedBox(height: 50),
 
-                // texto placeholder, mudar pra um logo depois
-                const Text("Food Quest",
-                key: Key("tituloText"),
-                    style:
-                        TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+                // // texto placeholder, mudar pra um logo depois
+                // const Text("Food Quest",
+                // key: Key("tituloText"),
+                //     style:
+                //         TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image(image: AssetImage('assets/images/logo-IMT.png'), height: 100, width: 150,),
+                    SizedBox(width: 25,),
+                    Image(image: AssetImage('assets/images/logo_piaget.png'), height: 100, width: 100,),
+                  ],
+                ),
 
                 const SizedBox(height: 50),
 

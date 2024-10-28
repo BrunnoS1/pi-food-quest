@@ -8,7 +8,6 @@ class UsuarioService {
   final _auth = FirebaseAuth.instance;
 
   //funçõs para nome
-
   Future<void> setNome(String nome) async {
     final user = FirebaseAuth.instance.currentUser!;
     await _db
