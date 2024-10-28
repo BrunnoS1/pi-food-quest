@@ -1,0 +1,25 @@
+{
+    "flutter": {
+        "platforms": {
+            "android": {
+                "default": {
+                    "projectId": "food-quest-ec947",
+                    "appId": "1:734490706940:android:4bda2bf19176ebd39b6879",
+                    "fileOutput": "android/app/google-services.json"
+                }
+            },
+            "dart": {
+                "lib/firebase_options.dart": {
+                    "projectId": "food-quest-ec947",
+                    "configurations": {
+                        "android": "1:734490706940:android:4bda2bf19176ebd39b6879",
+                        "ios": "1:734490706940:ios:da0bb2576b8c700f9b6879",
+                        "macos": "1:734490706940:ios:da0bb2576b8c700f9b6879",
+                        "web": "1:734490706940:web:4815044dcd869e6d9b6879",
+                        "windows": "1:734490706940:web:c0e25a10edb276d99b6879"
+                    }
+                }
+            }
+        }
+    }
+}

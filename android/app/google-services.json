@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "734490706940",
+    "project_id": "food-quest-ec947",
+    "storage_bucket": "food-quest-ec947.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:734490706940:android:4bda2bf19176ebd39b6879",
+        "android_client_info": {
+          "package_name": "com.foodquest.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApBokvXhsrVfCwXch056qCeTHJ8acdFXo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
