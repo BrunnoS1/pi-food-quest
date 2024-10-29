@@ -26,9 +26,10 @@ class _BottomAppBarWidgetState extends State<BottomAppBarWidget> {
                   return AlertDialog(
                     title: const Text("Sobre nós"),
                     content: const Text(
-                        "Este aplicativo é um jogo de quiz, no qual o professor pode criar "
-                        "editar e remover perguntas, a fim de tornar o aprendizado "
-                        "melhor e mais divertido!"
+                        "Somos alunos de Ciência da Computação e criamos este jogo didático sobre o sistema "
+                        "digestório para tornar o aprendizado mais acessível e divertido. Nossa meta é ajudar estudantes a " 
+                        "entender melhor o funcionamento do sistema digestório com perguntas interativas e conteúdo "
+                        "educativo. Aproveite o jogo e aprenda de forma divertida!"
                       ),
                     actions: [
                       TextButton(

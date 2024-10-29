@@ -84,7 +84,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(height: 50),
 
                 // texto placeholder, mudar pra um logo depois
-                const Text("YE Gestão de Saúde",
+                const Text("Food Quest",
                     style:
                         TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
 
