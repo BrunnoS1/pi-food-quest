@@ -16,7 +16,7 @@ class ButtonPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        color: Color.fromARGB(255, 123, 167, 150),
+        color: Color.fromARGB(255, 220, 15, 75),
         shape: BoxShape.circle, // Mantém o formato circular
       ),
       child: IconButton(

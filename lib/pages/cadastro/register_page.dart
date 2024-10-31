@@ -30,7 +30,7 @@ class _RegisterPageState extends State<RegisterPage> {
         builder: (context) {
           return const Center(
             child: CircularProgressIndicator(
-                color: Color.fromARGB(255, 123, 167, 150)),
+                color: Color.fromARGB(255, 220, 15, 75)),
           );
         });
 
@@ -75,6 +75,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255,75,75,75 ),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -86,14 +87,14 @@ class _RegisterPageState extends State<RegisterPage> {
                 // texto placeholder, mudar pra um logo depois
                 const Text("Food Quest",
                     style:
-                        TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+                        TextStyle(fontSize: 25, fontWeight: FontWeight.bold,color: Color.fromARGB(255, 255, 215, 90))),
 
                 const SizedBox(height: 50),
 
                 //texto boas-vindas
                 Text("Vamos criar sua conta!",
                     style: TextStyle(
-                      color: Colors.grey[700],
+                      color: const Color.fromARGB(255, 255, 255, 255),
                       fontSize: 16,
                     )),
                 const SizedBox(
@@ -154,19 +155,19 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
 
                       // texto
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Text("Outras formas",
-                            style: TextStyle(color: Colors.grey[700])),
-                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                      //   child: Text("Outras formas",
+                      //       style: TextStyle(color: Colors.grey[700])),
+                      // ),
 
-                      // divider
-                      Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey[400],
-                        ),
-                      ),
+                      // // divider
+                      // Expanded(
+                      //   child: Divider(
+                      //     thickness: 0.5,
+                      //     color: Colors.grey[400],
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
@@ -179,14 +180,14 @@ class _RegisterPageState extends State<RegisterPage> {
                   children: [
                     Text(
                       'Já tem uma conta?',
-                      style: TextStyle(color: Colors.grey[700]),
+                      style: TextStyle(color: const Color.fromARGB(255, 255, 255, 255)),
                     ),
                     const SizedBox(width: 4),
                     GestureDetector(
                       onTap: widget.onTap,
                       child: const Text("Faça login",
                           style: TextStyle(
-                            color: Colors.blue,
+                            color: Color.fromRGBO( 255, 215, 90, 1),
                             fontWeight: FontWeight.bold,
                           )),
                     ),

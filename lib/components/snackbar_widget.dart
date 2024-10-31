@@ -16,7 +16,7 @@ class SnackbarUtil {
           Text(message, style: const TextStyle(color: Colors.white, fontSize: 18),),
         ],
       ),
-      backgroundColor: isError ? Colors.red[400] : const Color.fromARGB(255, 123, 167, 150),
+      backgroundColor: isError ? Colors.red[400] : const Color.fromARGB(255, 255, 215, 90),
       duration: const Duration(seconds: 2),
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);

@@ -85,8 +85,7 @@ class _HomePageState extends State<HomePage> {
                                   WidgetStateProperty.resolveWith<Color>(
                                       (Set<WidgetState> states) {
                                 if (states.contains(WidgetState.pressed)) {
-                                  return const Color.fromARGB(
-                                      255, 123, 167, 150);
+                                  return const Color.fromARGB(255, 123, 167, 150);
                                 }
                                 return Colors.grey[200]!;
                               }),

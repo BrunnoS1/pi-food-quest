@@ -27,7 +27,8 @@ class _LoginPageState extends State<LoginPage> {
         context: context,
         builder: (context) {
           return const Center(
-            child: CircularProgressIndicator(color: Color.fromARGB(255, 123, 167, 150)),
+            child: CircularProgressIndicator(
+                color: Color.fromARGB(255, 220, 15, 75)),
           );
         });
 
@@ -64,6 +65,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 75, 75, 75),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -78,21 +80,31 @@ class _LoginPageState extends State<LoginPage> {
                 //     style:
                 //         TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
 
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image(image: AssetImage('assets/images/logo-IMT.png'), height: 100, width: 150,),
-                    SizedBox(width: 25,),
-                    Image(image: AssetImage('assets/images/logo_piaget.png'), height: 100, width: 100,),
-                  ],
-                ),
+                // const Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     Image(
+                //       image: AssetImage('assets/images/logo-IMT.png'),
+                //       height: 100,
+                //       width: 150,
+                //     ),
+                //     SizedBox(
+                //       width: 25,
+                //     ),
+                //     Image(
+                //       image: AssetImage('assets/images/logo_piaget.png'),
+                //       height: 100,
+                //       width: 100,
+                //     ),
+                //   ],
+                // ),
 
                 const SizedBox(height: 50),
 
                 //texto boas-vindas
-                Text("Bem-vindo!",
+                Text("Login",
                     style: TextStyle(
-                      color: Colors.grey[700],
+                      color: const Color.fromARGB(255, 255, 215, 90),
                       fontSize: 16,
                     )),
 
@@ -128,7 +140,7 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       Text("Esqueceu a senha?",
                           style: TextStyle(
-                            color: Colors.grey[700],
+                            color: const Color.fromARGB(255, 255, 255, 255),
                           )),
                     ],
                   ),
@@ -140,8 +152,7 @@ class _LoginPageState extends State<LoginPage> {
                 MyButton(
                     key: const Key("botaologin"),
                     onTap: signUserIn,
-                    text: "Login"
-                  ),
+                    text: "Login"),
 
                 const SizedBox(height: 25),
 
@@ -158,19 +169,19 @@ class _LoginPageState extends State<LoginPage> {
                       ),
 
                       // texto
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Text("Outras formas",
-                            style: TextStyle(color: Colors.grey[700])),
-                      ),
+                      //Padding(
+                        //padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                       // child: Text("Outras formas",
+                            //style: TextStyle(color: Colors.grey[700])),
+                      //),
 
                       // divider
-                      Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey[400],
-                        ),
-                      ),
+                      // Expanded(
+                      //   child: Divider(
+                      //     thickness: 0.5,
+                      //     color: Colors.grey[400],
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
@@ -183,7 +194,7 @@ class _LoginPageState extends State<LoginPage> {
                   children: [
                     Text(
                       'Ainda não cadastrado?',
-                      style: TextStyle(color: Colors.grey[700]),
+                      style: TextStyle(color: const Color.fromARGB(255, 255, 255, 255)),
                     ),
                     const SizedBox(width: 4),
                     GestureDetector(
@@ -191,7 +202,7 @@ class _LoginPageState extends State<LoginPage> {
                       onTap: widget.onTap,
                       child: const Text("Cadastre-se agora",
                           style: TextStyle(
-                            color: Colors.blue,
+                            color: Color.fromRGBO(255, 215, 90, 1),
                             fontWeight: FontWeight.bold,
                           )),
                     ),
