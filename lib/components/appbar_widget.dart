@@ -25,7 +25,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: const Color.fromARGB(255, 123, 167, 150),
+      backgroundColor: const Color.fromARGB(255, 75,75,75),
       title: Text(
         widget.titulo,
         textAlign: TextAlign.center,

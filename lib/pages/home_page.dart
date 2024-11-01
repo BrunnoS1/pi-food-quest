@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const CircularProgressIndicator(
-                        color: Color.fromARGB(255, 123, 167, 150));
+                        color: Color.fromARGB(0, 123, 167, 150));
                   } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else {
@@ -85,9 +85,9 @@ class _HomePageState extends State<HomePage> {
                                   WidgetStateProperty.resolveWith<Color>(
                                       (Set<WidgetState> states) {
                                 if (states.contains(WidgetState.pressed)) {
-                                  return const Color.fromARGB(255, 123, 167, 150);
+                                  return const Color.fromARGB(0, 123, 167, 150);
                                 }
-                                return Colors.grey[200]!;
+                                return const Color.fromRGBO(255, 215, 90, 1)!;
                               }),
                             ),
                             onPressed: () {
@@ -112,10 +112,9 @@ class _HomePageState extends State<HomePage> {
                                   WidgetStateProperty.resolveWith<Color>(
                                       (Set<WidgetState> states) {
                                 if (states.contains(WidgetState.pressed)) {
-                                  return const Color.fromARGB(
-                                      255, 123, 167, 150);
+                                  return const Color.fromARGB(0, 123, 167, 150);
                                 }
-                                return Colors.grey[200]!;
+                                return const Color.fromRGBO(255, 215, 90, 1)!;
                               }),
                             ),
                             onPressed: () {

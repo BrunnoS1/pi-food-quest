@@ -21,7 +21,8 @@ class _VerificacaoPageState extends State<VerificacaoPage> {
   void initState() {
     super.initState();
     FirebaseAuth.instance.currentUser?.sendEmailVerification();
-    timer = Timer.periodic(const Duration(seconds: 3), (_) => checkEmailVerified());
+    timer =
+        Timer.periodic(const Duration(seconds: 3), (_) => checkEmailVerified());
   }
 
   Future<void> checkEmailVerified() async {
@@ -52,6 +53,7 @@ class _VerificacaoPageState extends State<VerificacaoPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: const Color.fromARGB(255, 75, 75, 75),
         appBar: const AppBarWidget(
           titulo: "Verificação de E-mail",
           logout: true,
@@ -73,6 +75,7 @@ class _VerificacaoPageState extends State<VerificacaoPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 32.0),
                 child: Center(
                   child: Text(
+                    style:TextStyle(color: Color.fromARGB(255, 255, 215, 90)),
                     'Enviamos um email de confirmação para ${auth.currentUser?.email}',
                     textAlign: TextAlign.center,
                   ),
@@ -84,10 +87,14 @@ class _VerificacaoPageState extends State<VerificacaoPage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32.0),
                 child: ElevatedButton(
-                  child: const Text('Reenviar e-mail'),
+                  style: ElevatedButton.styleFrom(backgroundColor: Color.fromARGB(255,255,215,90)),
+                  // ( Color.fromARGB(255, 255, 215, 90)),
+                  child: const Text(style:TextStyle(color: Color.fromARGB(255, 220, 15, 75), fontWeight: FontWeight.bold),'Reenviar e-mail'),
+                  
                   onPressed: () {
                     try {
-                      FirebaseAuth.instance.currentUser?.sendEmailVerification();
+                      FirebaseAuth.instance.currentUser
+                          ?.sendEmailVerification();
                     } catch (e) {
                       debugPrint('$e');
                     }
