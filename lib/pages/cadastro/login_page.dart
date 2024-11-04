@@ -102,9 +102,9 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 50),
 
                 //texto boas-vindas
-                Text("Login",
+                const Text("Login",
                     style: TextStyle(
-                      color: const Color.fromARGB(255, 255, 215, 90),
+                      color: Color.fromARGB(255, 255, 215, 90),
                       fontSize: 16,
                     )),
 
@@ -133,14 +133,14 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 25),
 
                 // esqueceu senha
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text("Esqueceu a senha?",
                           style: TextStyle(
-                            color: const Color.fromARGB(255, 255, 255, 255),
+                            color: Color.fromARGB(255, 255, 255, 255),
                           )),
                     ],
                   ),
@@ -192,9 +192,9 @@ class _LoginPageState extends State<LoginPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       'Ainda não cadastrado?',
-                      style: TextStyle(color: const Color.fromARGB(255, 255, 255, 255)),
+                      style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                     ),
                     const SizedBox(width: 4),
                     GestureDetector(

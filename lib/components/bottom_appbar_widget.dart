@@ -60,10 +60,10 @@ class _BottomAppBarWidgetState extends State<BottomAppBarWidget> {
               ),
 
               // Imagens centralizadas no meio da BottomAppBar
-              Row(
+              const Row(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Image(
                     image: AssetImage('assets/images/logo_piaget.png'),
                     height:200,
@@ -79,7 +79,7 @@ class _BottomAppBarWidgetState extends State<BottomAppBarWidget> {
               ),
 
               // Placeholder para ocupar o espaço no final e equilibrar a centralização
-              SizedBox(width: 50),
+              const SizedBox(width: 50),
             ],
           ),
         ),

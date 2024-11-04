@@ -75,7 +75,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255,75,75,75 ),
+      backgroundColor: const Color.fromARGB(255,75,75,75 ),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -92,9 +92,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(height: 50),
 
                 //texto boas-vindas
-                Text("Vamos criar sua conta!",
+                const Text("Vamos criar sua conta!",
                     style: TextStyle(
-                      color: const Color.fromARGB(255, 255, 255, 255),
+                      color: Color.fromARGB(255, 255, 255, 255),
                       fontSize: 16,
                     )),
                 const SizedBox(
@@ -178,9 +178,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
+                    const Text(
                       'Já tem uma conta?',
-                      style: TextStyle(color: const Color.fromARGB(255, 255, 255, 255)),
+                      style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                     ),
                     const SizedBox(width: 4),
                     GestureDetector(

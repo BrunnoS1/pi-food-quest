@@ -75,7 +75,7 @@ class _VerificacaoPageState extends State<VerificacaoPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 32.0),
                 child: Center(
                   child: Text(
-                    style:TextStyle(color: Color.fromARGB(255, 255, 215, 90)),
+                    style:const TextStyle(color: Color.fromARGB(255, 255, 215, 90)),
                     'Enviamos um email de confirmação para ${auth.currentUser?.email}',
                     textAlign: TextAlign.center,
                   ),
@@ -87,7 +87,7 @@ class _VerificacaoPageState extends State<VerificacaoPage> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32.0),
                 child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: Color.fromARGB(255,255,215,90)),
+                  style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255,255,215,90)),
                   // ( Color.fromARGB(255, 255, 215, 90)),
                   child: const Text(style:TextStyle(color: Color.fromARGB(255, 220, 15, 75), fontWeight: FontWeight.bold),'Reenviar e-mail'),
                   
