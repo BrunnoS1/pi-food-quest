@@ -37,7 +37,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
         key: const Key("appbarButton"),
         onPressed: widget.logout
             ? signUserOut
-            : () => widget.rota == '/home'
+            : () => widget.rota == '/home_prof' || widget.rota == '/home_aluno'
                 ? Navigator.pushNamed(context, '/auth_page')
                 : Navigator.pushNamed(
                     context,

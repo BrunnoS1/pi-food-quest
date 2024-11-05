@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +6,22 @@ class PerguntaService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   //funcao para adicionar ou editar pergunta
-  Future<void> setPergunta(String documentId, String pergunta, String alt1,
+  Future<void> editPergunta(String documentId, String pergunta, String alt1,
+      String alt2, String alt3, String alt4) async {
+    DocumentReference docRef = _db.collection('perguntas').doc(documentId);
+
+    // cria o documento e adiciona a pergunta
+    await docRef.set({
+      'pergunta': pergunta,
+      'alt1': alt1,
+      'alt2': alt2,
+      'alt3': alt3,
+      'alt4': alt4,
+    });
+  }
+
+  //funcao para adicionar ou editar pergunta
+  Future<void> addPergunta(String pergunta, String alt1,
       String alt2, String alt3, String alt4) async {
     DocumentReference docRef = _db.collection('perguntas').doc();
 
