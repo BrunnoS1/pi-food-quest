@@ -50,11 +50,14 @@ class _BottomAppBarWidgetState extends State<BottomAppBarWidget> {
                     },
                   );
                 },
-                child: const Text(
-                  "Sobre nós",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
+                child: const MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: Text(
+                    "Sobre nós",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                    ),
                   ),
                 ),
               ),
