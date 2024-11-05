@@ -116,12 +116,14 @@ class _LoginPageState extends State<LoginPage> {
 
                 const SizedBox(height: 25),
 
-                // Login button
-                MyButton(
-                    key: const Key("botaologin"),
-                    onTap: signUserIn,
-                    text: "Login"),
-          
+                //botao login
+                MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: MyButton(
+                        key: const Key("botaologin"),
+                        onTap: signUserIn,
+                        text: "Login"),
+                  ),
                 const SizedBox(height: 25),
           
                 // New user sign up option
@@ -136,12 +138,19 @@ class _LoginPageState extends State<LoginPage> {
                     GestureDetector(
                       key: const Key("cadastrese"),
                       onTap: widget.onTap,
-                      child: const Text("Cadastre-se agora",
+                      child: const MouseRegion(
+                        cursor: SystemMouseCursors.click, // Define o cursor de mão
+                        child: Text(
+                          "Cadastre-se agora",
                           style: TextStyle(
                             color: Color.fromRGBO(255, 215, 90, 1),
                             fontWeight: FontWeight.bold,
-                          )),
+                          ),
+                        ),
+                      ),
                     ),
+
+                    
                   ],
                 ),
                 const SizedBox(height: 50),

@@ -5,7 +5,8 @@ import 'package:food_quest/components/bottom_appbar_widget.dart';
 import 'package:food_quest/services/usuario_service.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final professor;
+  const HomePage({super.key, this.professor});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -18,8 +19,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 75, 75, 75),
       appBar: const AppBarWidget(
-        titulo: "Food Quest",
+        titulo: "",
         logout: true,
         rota: "",
       ),
@@ -69,45 +71,20 @@ class _HomePageState extends State<HomePage> {
 
               const SizedBox(height: 50),
 
+              //column com os botoes
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Wrap(
                     alignment: WrapAlignment.center,
                     children: [
+                      //botao jogar
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: ElevatedButton(
                             style: ButtonStyle(
                               fixedSize: WidgetStateProperty.all(
-                                  const Size.fromWidth(120)),
-                              backgroundColor:
-                                  WidgetStateProperty.resolveWith<Color>(
-                                      (Set<WidgetState> states) {
-                                if (states.contains(WidgetState.pressed)) {
-                                  return const Color.fromARGB(0, 123, 167, 150);
-                                }
-                                return const Color.fromRGBO(255, 215, 90, 1)!;
-                              }),
-                            ),
-                            onPressed: () {
-                              Navigator.pushNamed(
-                                  context, '/'); //colocar nome da pagina
-                            },
-                            child: const Text(
-                              'Jogar',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500),
-                            )),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: ElevatedButton(
-                            style: ButtonStyle(
-                              fixedSize: WidgetStateProperty.all(
-                                  const Size.fromWidth(120)),
+                                  const Size.fromWidth(150)),
                               backgroundColor:
                                   WidgetStateProperty.resolveWith<Color>(
                                       (Set<WidgetState> states) {
@@ -118,7 +95,35 @@ class _HomePageState extends State<HomePage> {
                               }),
                             ),
                             onPressed: () {
-                              Navigator.pushNamed(context, '/'); //colocar nome da página
+                              Navigator.pushNamed(
+                                  context, '/home_aluno'); //colocar nome da pagina certa
+                            },
+                            child: const Text(
+                              'Jogar',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500),
+                            )),
+                      ),
+                      //botao configuracoes
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: ElevatedButton(
+                            style: ButtonStyle(
+                              fixedSize: WidgetStateProperty.all(
+                                  const Size.fromWidth(150)),
+                              backgroundColor:
+                                  WidgetStateProperty.resolveWith<Color>(
+                                      (Set<WidgetState> states) {
+                                if (states.contains(WidgetState.pressed)) {
+                                  return const Color.fromARGB(0, 123, 167, 150);
+                                }
+                                return const Color.fromRGBO(255, 215, 90, 1);
+                              }),
+                            ),
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/home_aluno'); //colocar nome da página
                             },
                             child: const Text(
                               'Configurações',
@@ -128,6 +133,34 @@ class _HomePageState extends State<HomePage> {
                                   fontWeight: FontWeight.w500),
                             )),
                       ),
+                      //botao perguntas (so aparece se for login de professor)
+                      widget.professor? 
+                      Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: ElevatedButton(
+                            style: ButtonStyle(
+                              fixedSize: WidgetStateProperty.all(
+                                  const Size.fromWidth(150)),
+                              backgroundColor:
+                                  WidgetStateProperty.resolveWith<Color>(
+                                      (Set<WidgetState> states) {
+                                if (states.contains(WidgetState.pressed)) {
+                                  return const Color.fromARGB(0, 123, 167, 150);
+                                }
+                                return const Color.fromRGBO(255, 215, 90, 1);
+                              }),
+                            ),
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/perguntas_page'); //colocar nome da página
+                            },
+                            child: const Text(
+                              'Perguntas',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500),
+                            )),
+                      ) : const SizedBox(),
                     ],
                   ),
                 ],
