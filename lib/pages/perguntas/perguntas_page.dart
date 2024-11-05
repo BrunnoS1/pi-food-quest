@@ -29,7 +29,7 @@ class _PerguntasPageState extends State<PerguntasPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text(''),
+          title: const Text('Adicionar pergunta'),
           content: Column(
             children: [
               TextField(
