@@ -82,14 +82,14 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(height: 50),
+                const SizedBox(height: 25),
 
-                // texto placeholder, mudar pra um logo depois
-                const Text("Food Quest",
-                    style:
-                        TextStyle(fontSize: 25, fontWeight: FontWeight.bold,color: Color.fromARGB(255, 255, 215, 90))),
+                const Image(
+                  image: AssetImage('assets/images/logo-FoodQuest.png'),
+                  height: 100,
+                ),
 
-                const SizedBox(height: 50),
+                const SizedBox(height: 25),
 
                 //texto boas-vindas
                 const Text("Vamos criar sua conta!",
@@ -135,44 +135,12 @@ class _RegisterPageState extends State<RegisterPage> {
                   obscureText: true,
                 ),
 
-                const SizedBox(height: 50),
+                const SizedBox(height: 25),
 
                 //botao login
                 MyButton(onTap: signUserUp, text: "Cadastrar-se"),
 
                 const SizedBox(height: 25),
-
-                //texto outras formas
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey[400],
-                        ),
-                      ),
-
-                      // texto
-                      // Padding(
-                      //   padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      //   child: Text("Outras formas",
-                      //       style: TextStyle(color: Colors.grey[700])),
-                      // ),
-
-                      // // divider
-                      // Expanded(
-                      //   child: Divider(
-                      //     thickness: 0.5,
-                      //     color: Colors.grey[400],
-                      //   ),
-                      // ),
-                    ],
-                  ),
-                ),
-
-                const SizedBox(height: 50),
 
                 //ainda nao cadastrado
                 Row(
@@ -193,7 +161,6 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 50),
               ],
             ),
           ),

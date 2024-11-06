@@ -30,7 +30,7 @@ class _PerguntasPageState extends State<PerguntasPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text(''),
+          title: const Text('Adicionar pergunta'),
           content: Column(
             children: [
               TextField(
@@ -65,7 +65,7 @@ class _PerguntasPageState extends State<PerguntasPage> {
               ),
               TextField(
                 key: const Key("addResField"),
-                controller: controllerA4,
+                controller: controllerResposta,
                 keyboardType: TextInputType.text,
                 decoration: const InputDecoration(hintText: "Alternativa correta (1, 2, 3, 4)"),
               ),
@@ -82,8 +82,8 @@ class _PerguntasPageState extends State<PerguntasPage> {
                 String alt4 = controllerA4.text;
                 String resposta = controllerResposta.text;
                 try {
-                  await perguntaService.setPergunta(
-                      user.email!, pergunta, alt1, alt2, alt3, alt4, resposta);
+                  await perguntaService.addPergunta(
+                       pergunta, alt1, alt2, alt3, alt4, resposta);
                   SnackbarUtil.showSnackbar(
                       context, 'Pergunta salva com sucesso!');
                   Navigator.of(context).pop();
@@ -91,6 +91,108 @@ class _PerguntasPageState extends State<PerguntasPage> {
                   // debugPrint('Erro ao adicionar pergunta: $e');
                   SnackbarUtil.showSnackbar(
                       context, 'Erro ao salvar a pergunta',
+                      isError: true);
+                }
+              },
+              child:
+                  const Text('Salvar', style: TextStyle(color: Colors.black)),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child:
+                  const Text('Cancelar', style: TextStyle(color: Colors.black)),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _editPergunta(
+      BuildContext context, Map<String, dynamic> perguntaData) async {
+    TextEditingController controllerP =
+        TextEditingController(text: perguntaData['pergunta']);
+    TextEditingController controllerA1 =
+        TextEditingController(text: perguntaData['alt1']);
+    TextEditingController controllerA2 =
+        TextEditingController(text: perguntaData['alt2']);
+    TextEditingController controllerA3 =
+        TextEditingController(text: perguntaData['alt3']);
+    TextEditingController controllerA4 =
+        TextEditingController(text: perguntaData['alt4']);
+    TextEditingController controllerResposta =
+        TextEditingController(text: perguntaData['resposta']);    
+
+    await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Editar pergunta'),
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  key: const Key("editPerguntaField"),
+                  controller: controllerP,
+                  keyboardType: TextInputType.text,
+                  decoration: const InputDecoration(hintText: "Pergunta"),
+                ),
+                TextField(
+                  key: const Key("editA1Field"),
+                  controller: controllerA1,
+                  keyboardType: TextInputType.text,
+                  decoration: const InputDecoration(hintText: "Alternativa 1"),
+                ),
+                TextField(
+                  key: const Key("editA2Field"),
+                  controller: controllerA2,
+                  keyboardType: TextInputType.text,
+                  decoration: const InputDecoration(hintText: "Alternativa 2"),
+                ),
+                TextField(
+                  key: const Key("editA3Field"),
+                  controller: controllerA3,
+                  keyboardType: TextInputType.text,
+                  decoration: const InputDecoration(hintText: "Alternativa 3"),
+                ),
+                TextField(
+                  key: const Key("editA4Field"),
+                  controller: controllerA4,
+                  keyboardType: TextInputType.text,
+                  decoration: const InputDecoration(hintText: "Alternativa 4"),
+                ),
+                TextField(
+                  key: const Key("editRespostaField"),
+                  controller: controllerResposta,
+                  keyboardType: TextInputType.text,
+                  decoration: const InputDecoration(hintText: "Alternativa correta (1, 2, 3, 4)"),
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              key: const Key("salvarEdicaoButton"),
+              onPressed: () async {
+                String pergunta = controllerP.text;
+                String alt1 = controllerA1.text;
+                String alt2 = controllerA2.text;
+                String alt3 = controllerA3.text;
+                String alt4 = controllerA4.text;
+                String resposta = controllerResposta.text;
+                try {
+                  // Atualiza a pergunta no Firestore com o documentId
+                  await perguntaService.editPergunta(perguntaData['documentId'],
+                      pergunta, alt1, alt2, alt3, alt4, resposta);
+                  SnackbarUtil.showSnackbar(
+                      context, 'Pergunta editada com sucesso!');
+                  Navigator.of(context).pop();
+                } catch (e) {
+                  SnackbarUtil.showSnackbar(
+                      context, 'Erro ao editar a pergunta',
                       isError: true);
                 }
               },
@@ -156,6 +258,7 @@ class _PerguntasPageState extends State<PerguntasPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 75, 75, 75),
       appBar: const AppBarWidget(titulo: 'Perguntas', rota: '/home_prof'),
       body: StreamBuilder<List<Map<String, dynamic>>>(
         stream: perguntaService.getListaPerguntas(),
@@ -163,7 +266,7 @@ class _PerguntasPageState extends State<PerguntasPage> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
                 child: CircularProgressIndicator(
-                    color: Color.fromARGB(255, 123, 167, 150)));
+                    color: Color.fromARGB(255, 220, 15, 75)));
           }
           if (snapshot.hasError) {
             return const Center(child: Text('Sem dados'));
@@ -179,7 +282,7 @@ class _PerguntasPageState extends State<PerguntasPage> {
             itemBuilder: (context, index) {
               var perguntaData = perguntaList[index];
               return Card(
-                color: Colors.grey[200],
+                color: const Color.fromRGBO(255, 215, 90, 1),
                 margin: const EdgeInsets.all(8.0),
                 child: ListTile(
                   title: Text(
@@ -187,6 +290,9 @@ class _PerguntasPageState extends State<PerguntasPage> {
                     '${perguntaData['pergunta']}',
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
+                  onTap: () async {
+                    await _editPergunta(context, perguntaData);
+                  },
                   onLongPress: () async {
                     try {
                       await _removePergunta(
@@ -207,8 +313,8 @@ class _PerguntasPageState extends State<PerguntasPage> {
         padding: const EdgeInsets.only(bottom: 15),
         child: Container(
           decoration: const BoxDecoration(
-            color: Color.fromARGB(255, 123, 167, 150),
-            shape: BoxShape.circle, // Mantém o formato circular
+            color: Color.fromARGB(255, 220, 15, 75),
+            shape: BoxShape.circle,
           ),
           child: IconButton(
             key: const Key("botaoAddpergunta"),

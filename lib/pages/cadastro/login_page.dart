@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_quest/components/bottom_appbar_widget.dart';
@@ -17,12 +15,11 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   // controllers
   final emailController = TextEditingController();
-
   final passwordController = TextEditingController();
 
-  // sign in
+  // sign in function
   void signUserIn() async {
-    //circulo loading
+    // Show loading circle
     showDialog(
         context: context,
         builder: (context) {
@@ -32,23 +29,22 @@ class _LoginPageState extends State<LoginPage> {
           );
         });
 
-    //login
+    // Attempt sign in
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
       );
 
-      //tirar loading
+      // Dismiss loading circle
       Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
-      //tirar loading
+      // Dismiss loading circle
       e.stackTrace;
       Navigator.pop(context);
 
-      // popup login errado
+      // Show error message
       showErrorMessage();
-      // debugPrint("email/senha invalido");
     }
   }
 
@@ -57,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
         context: context,
         builder: (context) {
           return const AlertDialog(
-            title: Text("Email/senha invalidos"),
+            title: Text("Email/senha inválidos"),
           );
         });
   }
@@ -74,45 +70,15 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 const SizedBox(height: 50),
 
-                // // texto placeholder, mudar pra um logo depois
-                // const Text("Food Quest",
-                // key: Key("tituloText"),
-                //     style:
-                //         TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
-
-                // const Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     Image(
-                //       image: AssetImage('assets/images/logo-IMT.png'),
-                //       height: 100,
-                //       width: 150,
-                //     ),
-                //     SizedBox(
-                //       width: 25,
-                //     ),
-                //     Image(
-                //       image: AssetImage('assets/images/logo_piaget.png'),
-                //       height: 100,
-                //       width: 100,
-                //     ),
-                //   ],
-                // ),
-
-                const SizedBox(height: 50),
-
-                //texto boas-vindas
-                const Text("Login",
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 255, 215, 90),
-                      fontSize: 16,
-                    )),
-
-                const SizedBox(
-                  height: 25,
+                // Adiciona a Logo acima dos campos de texto
+                const Image(
+                  image: AssetImage('assets/images/logo-FoodQuest.png'),
+                  height: 100, // Ajuste o tamanho como necessário
                 ),
 
-                //user textfield
+                const SizedBox(height: 50),  // Espaço entre a logo e o campo de email
+
+                // Email text field
                 MyTextField(
                   key: const Key("userfield"),
                   controller: emailController,
@@ -122,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
 
                 const SizedBox(height: 25),
 
-                //pass textfield
+                // Password text field
                 MyTextField(
                   key: const Key("passfield"),
                   controller: passwordController,
@@ -132,16 +98,18 @@ class _LoginPageState extends State<LoginPage> {
 
                 const SizedBox(height: 25),
 
-                // esqueceu senha
+                // Forget password
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 25.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text("Esqueceu a senha?",
-                          style: TextStyle(
-                            color: Color.fromARGB(255, 255, 255, 255),
-                          )),
+                      Text(
+                        "Esqueceu a senha?",
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 255, 255, 255),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -157,40 +125,8 @@ class _LoginPageState extends State<LoginPage> {
                         text: "Login"),
                   ),
                 const SizedBox(height: 25),
-
-                //texto outras formas
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Divider(
-                          thickness: 0.5,
-                          color: Colors.grey[400],
-                        ),
-                      ),
-
-                      // texto
-                      //Padding(
-                        //padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                       // child: Text("Outras formas",
-                            //style: TextStyle(color: Colors.grey[700])),
-                      //),
-
-                      // divider
-                      // Expanded(
-                      //   child: Divider(
-                      //     thickness: 0.5,
-                      //     color: Colors.grey[400],
-                      //   ),
-                      // ),
-                    ],
-                  ),
-                ),
-
-                const SizedBox(height: 50),
-
-                //Ainda nao cadastrado
+          
+                // New user sign up option
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

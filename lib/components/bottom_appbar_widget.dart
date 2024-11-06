@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
+  import 'package:flutter/material.dart';
 
-class BottomAppBarWidget extends StatefulWidget {
-  const BottomAppBarWidget({super.key});
+  class BottomAppBarWidget extends StatefulWidget {
+    const BottomAppBarWidget({super.key});
 
-  @override
-  State<BottomAppBarWidget> createState() => _BottomAppBarWidgetState();
-}
+    @override
+    State<BottomAppBarWidget> createState() => _BottomAppBarWidgetState();
+  }
 
 class _BottomAppBarWidgetState extends State<BottomAppBarWidget> {
   @override
@@ -62,33 +62,33 @@ class _BottomAppBarWidgetState extends State<BottomAppBarWidget> {
                 ),
               ),
 
-              // Imagens centralizadas no meio da BottomAppBar
-              const Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image(
-                    image: AssetImage('assets/images/logo_piaget.png'),
-                    height:200,
-                    width:80,
-                  ),
-                  SizedBox(width: 8), // Espaçamento entre as imagens
-                  Image(
-                    image: AssetImage('assets/images/logo-IMT.png'),
-                    height:700,
-                    width:150,
-                  ),
-                ],
-              ),
+                // Imagens centralizadas no meio da BottomAppBar
+                const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image(
+                      image: AssetImage('assets/images/logo_piaget.png'),
+                      height: 700,
+                      width: 80,
+                    ),
+                    SizedBox(width: 8), // Espaçamento entre as imagens
+                    Image(
+                      image: AssetImage('assets/images/logo-IMT.png'),
+                      height: 700,
+                      width: 150,
+                    ),
+                  ],
+                ),
 
-              // Placeholder para ocupar o espaço no final e equilibrar a centralização
-              const SizedBox(width: 50),
-            ],
+                // Placeholder para ocupar o espaço no final e equilibrar a centralização
+                const SizedBox(width: 50),
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+    }
   }
-}
 
 

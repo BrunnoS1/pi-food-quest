@@ -31,6 +31,12 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // Logo na parte de cima da tela
+              const Image(
+                image: AssetImage('assets/images/logo-FoodQuest.png'),
+                height: 100, // Ajuste o tamanho como necessário
+              ),
+
               const SizedBox(height: 150),
 
               //Texto bem vindo com nome do usuario
@@ -95,8 +101,8 @@ class _HomePageState extends State<HomePage> {
                               }),
                             ),
                             onPressed: () {
-                              Navigator.pushNamed(
-                                  context, '/home_aluno'); //colocar nome da pagina certa
+                              // Navigator.pushNamed(context,
+                              //     '/home_aluno'); //colocar nome da pagina certa
                             },
                             child: const Text(
                               'Jogar',
@@ -123,7 +129,8 @@ class _HomePageState extends State<HomePage> {
                               }),
                             ),
                             onPressed: () {
-                              Navigator.pushNamed(context, '/home_aluno'); //colocar nome da página
+                              // Navigator.pushNamed(context,
+                              //     '/home_aluno'); //colocar nome da página
                             },
                             child: const Text(
                               'Configurações',
@@ -134,33 +141,38 @@ class _HomePageState extends State<HomePage> {
                             )),
                       ),
                       //botao perguntas (so aparece se for login de professor)
-                      widget.professor? 
-                      Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: ElevatedButton(
-                            style: ButtonStyle(
-                              fixedSize: WidgetStateProperty.all(
-                                  const Size.fromWidth(150)),
-                              backgroundColor:
-                                  WidgetStateProperty.resolveWith<Color>(
-                                      (Set<WidgetState> states) {
-                                if (states.contains(WidgetState.pressed)) {
-                                  return const Color.fromARGB(0, 123, 167, 150);
-                                }
-                                return const Color.fromRGBO(255, 215, 90, 1);
-                              }),
-                            ),
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/perguntas_page'); //colocar nome da página
-                            },
-                            child: const Text(
-                              'Perguntas',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500),
-                            )),
-                      ) : const SizedBox(),
+                      widget.professor
+                          ? Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    fixedSize: WidgetStateProperty.all(
+                                        const Size.fromWidth(150)),
+                                    backgroundColor:
+                                        WidgetStateProperty.resolveWith<Color>(
+                                            (Set<WidgetState> states) {
+                                      if (states
+                                          .contains(WidgetState.pressed)) {
+                                        return const Color.fromARGB(
+                                            0, 123, 167, 150);
+                                      }
+                                      return const Color.fromRGBO(
+                                          255, 215, 90, 1);
+                                    }),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.pushNamed(context,
+                                        '/perguntas_page'); //colocar nome da página
+                                  },
+                                  child: const Text(
+                                    'Perguntas',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500),
+                                  )),
+                            )
+                          : const SizedBox(),
                     ],
                   ),
                 ],
@@ -173,4 +185,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
