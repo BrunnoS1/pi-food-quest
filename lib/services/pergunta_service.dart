@@ -8,7 +8,7 @@ class PerguntaService {
 
   //funcao para adicionar ou editar pergunta
   Future<void> setPergunta(String documentId, String pergunta, String alt1,
-      String alt2, String alt3, String alt4) async {
+      String alt2, String alt3, String alt4, String resposta) async {
     DocumentReference docRef = _db.collection('perguntas').doc();
 
     // cria o documento e adiciona a pergunta
@@ -18,6 +18,7 @@ class PerguntaService {
       'alt2': alt2,
       'alt3': alt3,
       'alt4': alt4,
+      'resposta': resposta
     });
   }
 
