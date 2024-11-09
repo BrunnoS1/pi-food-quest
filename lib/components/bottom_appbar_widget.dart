@@ -70,9 +70,9 @@ class _BottomAppBarWidgetState extends State<BottomAppBarWidget> {
                     Image(
                       image: AssetImage('assets/images/logo_piaget.png'),
                       height: 700,
-                      width: 80,
+                      width: 150,
                     ),
-                    SizedBox(width: 8), // Espaçamento entre as imagens
+                    SizedBox(width: 15), // Espaçamento entre as imagens
                     Image(
                       image: AssetImage('assets/images/logo-IMT.png'),
                       height: 700,

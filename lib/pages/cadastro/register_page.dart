@@ -138,7 +138,10 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(height: 25),
 
                 //botao login
-                MyButton(onTap: signUserUp, text: "Cadastrar-se"),
+                MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: MyButton(onTap: signUserUp, text: "Cadastra-se", key: const Key("botaoCadastro"),),
+                ),
 
                 const SizedBox(height: 25),
 
@@ -153,11 +156,16 @@ class _RegisterPageState extends State<RegisterPage> {
                     const SizedBox(width: 4),
                     GestureDetector(
                       onTap: widget.onTap,
-                      child: const Text("Faça login",
+                      child: const MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: Text(
+                          "Faça login",
                           style: TextStyle(
                             color: Color.fromRGBO( 255, 215, 90, 1),
                             fontWeight: FontWeight.bold,
-                          )),
+                          )
+                        ),
+                      )
                     ),
                   ],
                 ),
