@@ -115,7 +115,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 onPressed: () {
-                                  // Navigator.pushNamed(context, '/home_aluno'); // colocar nome da página certa
+                                  Navigator.pushNamed(context, '/jogo_pergunta'); // colocar nome da página certa
                                 },
                                 child: const Text(
                                   'Jogar',
