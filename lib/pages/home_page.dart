@@ -42,14 +42,15 @@ class _HomePageState extends State<HomePage> {
 
               //Texto bem vindo com nome do usuario
               Center(
-                child:Column(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     StreamBuilder<String?>(
                       stream: usuarioService.getNome(user.email!),
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
                           return const CircularProgressIndicator(
                               color: Color.fromARGB(0, 123, 167, 150));
                         } else if (snapshot.hasError) {
@@ -57,21 +58,25 @@ class _HomePageState extends State<HomePage> {
                         } else {
                           String displayName = snapshot.data ?? user.email!;
                           return Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
                             child: Wrap(
                               alignment: WrapAlignment.center,
                               children: [
                                 const Text(
                                   key: Key("boasvindas"),
                                   "Bem vindo, ",
-                                  style: TextStyle(fontSize: 24, color: Colors.white),
+                                  style: TextStyle(
+                                      fontSize: 24, color: Colors.white),
                                 ),
                                 Text(
                                   displayName,
                                   key: const Key("boasvindasNome"),
                                   style: const TextStyle(
-                                      fontSize: 24, fontWeight: FontWeight.w600, color: Color.fromARGB(255,220,15,75),
-                                    ),
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w600,
+                                    color: Color.fromARGB(255, 220, 15, 75),
+                                  ),
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
                                 ),
@@ -81,9 +86,9 @@ class _HomePageState extends State<HomePage> {
                         }
                       },
                     ),
-                    
+
                     const SizedBox(height: 50),
-                    
+
                     //column com os botoes
                     Column(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -96,26 +101,42 @@ class _HomePageState extends State<HomePage> {
                               padding: const EdgeInsets.all(10),
                               child: ElevatedButton(
                                 style: ButtonStyle(
-                                  fixedSize: WidgetStateProperty.all(const Size.fromWidth(150)),
-                                  backgroundColor: WidgetStateProperty.resolveWith<Color>(
+                                  fixedSize: WidgetStateProperty.all(
+                                      const Size.fromWidth(150)),
+                                  backgroundColor:
+                                      WidgetStateProperty.resolveWith<Color>(
                                     (Set<WidgetState> states) {
-                                      if (states.contains(WidgetState.pressed)) {
-                                        return const Color.fromARGB(255, 220, 15, 75); // Cor de fundo quando pressionado
+                                      if (states
+                                          .contains(WidgetState.pressed)) {
+                                        return const Color.fromARGB(
+                                            255,
+                                            220,
+                                            15,
+                                            75); // Cor de fundo quando pressionado
                                       }
-                                      return const Color.fromRGBO(255, 215, 90, 1); // Cor de fundo padrão
+                                      return const Color.fromRGBO(255, 215, 90,
+                                          1); // Cor de fundo padrão
                                     },
                                   ),
-                                  foregroundColor: WidgetStateProperty.resolveWith<Color>(
+                                  foregroundColor:
+                                      WidgetStateProperty.resolveWith<Color>(
                                     (Set<WidgetState> states) {
-                                      if (states.contains(WidgetState.pressed)) {
-                                        return const Color.fromRGBO(255, 215, 90, 1); // Cor do texto quando pressionado
+                                      if (states
+                                          .contains(WidgetState.pressed)) {
+                                        return const Color.fromRGBO(
+                                            255,
+                                            215,
+                                            90,
+                                            1); // Cor do texto quando pressionado
                                       }
-                                      return const Color.fromARGB(255, 220, 15, 75); // Cor do texto padrão
+                                      return const Color.fromARGB(255, 220, 15,
+                                          75); // Cor do texto padrão
                                     },
                                   ),
                                 ),
                                 onPressed: () {
-                                  Navigator.pushNamed(context, '/jogo_pergunta'); // colocar nome da página certa
+                                  Navigator.pushNamed(context,
+                                      '/jogo_pergunta'); // colocar nome da página certa
                                 },
                                 child: const Text(
                                   'Jogar',
@@ -131,21 +152,33 @@ class _HomePageState extends State<HomePage> {
                               padding: const EdgeInsets.all(10),
                               child: ElevatedButton(
                                 style: ButtonStyle(
-                                  fixedSize: WidgetStateProperty.all(const Size.fromWidth(150)),
-                                  backgroundColor: WidgetStateProperty.resolveWith<Color>(
+                                  fixedSize: WidgetStateProperty.all(
+                                      const Size.fromWidth(150)),
+                                  backgroundColor:
+                                      WidgetStateProperty.resolveWith<Color>(
                                     (Set<WidgetState> states) {
-                                      if (states.contains(WidgetState.pressed)) {
-                                        return const Color.fromARGB(255, 220, 15, 75);
+                                      if (states
+                                          .contains(WidgetState.pressed)) {
+                                        return const Color.fromARGB(
+                                            255, 220, 15, 75);
                                       }
-                                      return const Color.fromRGBO(255, 215, 90, 1);
+                                      return const Color.fromRGBO(
+                                          255, 215, 90, 1);
                                     },
                                   ),
-                                  foregroundColor: WidgetStateProperty.resolveWith<Color>(
+                                  foregroundColor:
+                                      WidgetStateProperty.resolveWith<Color>(
                                     (Set<WidgetState> states) {
-                                      if (states.contains(WidgetState.pressed)) {
-                                        return const Color.fromRGBO(255, 215, 90, 1); // Cor do texto quando pressionado
+                                      if (states
+                                          .contains(WidgetState.pressed)) {
+                                        return const Color.fromRGBO(
+                                            255,
+                                            215,
+                                            90,
+                                            1); // Cor do texto quando pressionado
                                       }
-                                      return const Color.fromARGB(255, 220, 15, 75); // Cor do texto padrão
+                                      return const Color.fromARGB(255, 220, 15,
+                                          75); // Cor do texto padrão
                                     },
                                   ),
                                 ),
@@ -161,43 +194,112 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                             ),
-                            //botao perguntas (so aparece se for login de professor)
-                            widget.professor
-                              ? Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: ElevatedButton(
-                                  style: ButtonStyle(
-                                    fixedSize: WidgetStateProperty.all(const Size.fromWidth(150)),
-                                    backgroundColor: WidgetStateProperty.resolveWith<Color>(
-                                      (Set<WidgetState> states) {
-                                        if (states.contains(WidgetState.pressed)) {
-                                          return const Color.fromARGB(255, 220, 15, 75); // Cor de fundo quando pressionado
-                                        }
-                                        return const Color.fromRGBO(255, 215, 90, 1); // Cor de fundo padrão
-                                      },
-                                    ),
-                                    foregroundColor: WidgetStateProperty.resolveWith<Color>(
-                                      (Set<WidgetState> states) {
-                                        if (states.contains(WidgetState.pressed)) {
-                                          return const Color.fromRGBO(255, 215, 90, 1); // Cor do texto quando pressionado
-                                        }
-                                        return const Color.fromARGB(255, 220, 15, 75); // Cor do texto padrão
-                                      },
-                                    ),
+                            //botao ranking
+                            Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: ElevatedButton(
+                                style: ButtonStyle(
+                                  fixedSize: WidgetStateProperty.all(
+                                      const Size.fromWidth(150)),
+                                  backgroundColor:
+                                      WidgetStateProperty.resolveWith<Color>(
+                                    (Set<WidgetState> states) {
+                                      if (states
+                                          .contains(WidgetState.pressed)) {
+                                        return const Color.fromARGB(
+                                            255, 220, 15, 75);
+                                      }
+                                      return const Color.fromRGBO(
+                                          255, 215, 90, 1);
+                                    },
                                   ),
-                                  onPressed: () {
-                                    Navigator.pushNamed(context, '/perguntas_page');
-                                  },
-                                  child: const Text(
-                                    'Perguntas',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                  foregroundColor:
+                                      WidgetStateProperty.resolveWith<Color>(
+                                    (Set<WidgetState> states) {
+                                      if (states
+                                          .contains(WidgetState.pressed)) {
+                                        return const Color.fromRGBO(
+                                            255,
+                                            215,
+                                            90,
+                                            1); // Cor do texto quando pressionado
+                                      }
+                                      return const Color.fromARGB(255, 220, 15,
+                                          75); // Cor do texto padrão
+                                    },
                                   ),
                                 ),
-                              )
-                            : const SizedBox(),
+                                onPressed: () {
+                                  Navigator.pushNamed(context, '/ranking');
+                                },
+                                child: const Text(
+                                  'Ranking',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            //botao perguntas (so aparece se for login de professor)
+                            widget.professor
+                                ? Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: ElevatedButton(
+                                      style: ButtonStyle(
+                                        fixedSize: WidgetStateProperty.all(
+                                            const Size.fromWidth(150)),
+                                        backgroundColor: WidgetStateProperty
+                                            .resolveWith<Color>(
+                                          (Set<WidgetState> states) {
+                                            if (states.contains(
+                                                WidgetState.pressed)) {
+                                              return const Color.fromARGB(
+                                                  255,
+                                                  220,
+                                                  15,
+                                                  75); // Cor de fundo quando pressionado
+                                            }
+                                            return const Color.fromRGBO(
+                                                255,
+                                                215,
+                                                90,
+                                                1); // Cor de fundo padrão
+                                          },
+                                        ),
+                                        foregroundColor: WidgetStateProperty
+                                            .resolveWith<Color>(
+                                          (Set<WidgetState> states) {
+                                            if (states.contains(
+                                                WidgetState.pressed)) {
+                                              return const Color.fromRGBO(
+                                                  255,
+                                                  215,
+                                                  90,
+                                                  1); // Cor do texto quando pressionado
+                                            }
+                                            return const Color.fromARGB(
+                                                255,
+                                                220,
+                                                15,
+                                                75); // Cor do texto padrão
+                                          },
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.pushNamed(
+                                            context, '/perguntas_page');
+                                      },
+                                      child: const Text(
+                                        'Perguntas',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                : const SizedBox(),
                           ],
                         ),
                       ],

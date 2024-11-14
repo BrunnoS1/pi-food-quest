@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:food_quest/pages/cadastro/auth_page.dart';
-import 'package:food_quest/pages/jogo/pergunta_ingame_page.dart';
 import 'package:food_quest/routes.dart';
 import 'firebase_options.dart';
 

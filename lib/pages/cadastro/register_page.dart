@@ -58,7 +58,20 @@ class _RegisterPageState extends State<RegisterPage> {
       Navigator.pop(context);
 
       // popup erro
-      showErrorMessage(e.code);
+      switch (e.code) {
+        case 'invalid-email':
+          showErrorMessage("Erro: E-mail inválido");
+          break;
+        case 'weak-password':
+          showErrorMessage("Erro: Senha muito fraca (deve conter pelo menos 8 caracteres)");
+          break;
+        case 'email-already-in-use':
+          showErrorMessage("Erro: E-mail já utilizado");
+          break;
+        default:
+          showErrorMessage(e.code);
+          break;
+      }
     }
   }
 
@@ -75,7 +88,7 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255,75,75,75 ),
+      backgroundColor: const Color.fromARGB(255, 75, 75, 75),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -140,7 +153,11 @@ class _RegisterPageState extends State<RegisterPage> {
                 //botao login
                 MouseRegion(
                   cursor: SystemMouseCursors.click,
-                  child: MyButton(onTap: signUserUp, text: "Cadastra-se", key: const Key("botaoCadastro"),),
+                  child: MyButton(
+                    onTap: signUserUp,
+                    text: "Cadastrar-se",
+                    key: const Key("botaoCadastro"),
+                  ),
                 ),
 
                 const SizedBox(height: 25),
@@ -151,22 +168,20 @@ class _RegisterPageState extends State<RegisterPage> {
                   children: [
                     const Text(
                       'Já tem uma conta?',
-                      style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                      style:
+                          TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                     ),
                     const SizedBox(width: 4),
                     GestureDetector(
-                      onTap: widget.onTap,
-                      child: const MouseRegion(
-                        cursor: SystemMouseCursors.click,
-                        child: Text(
-                          "Faça login",
-                          style: TextStyle(
-                            color: Color.fromRGBO( 255, 215, 90, 1),
-                            fontWeight: FontWeight.bold,
-                          )
-                        ),
-                      )
-                    ),
+                        onTap: widget.onTap,
+                        child: const MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: Text("Faça login",
+                              style: TextStyle(
+                                color: Color.fromRGBO(255, 215, 90, 1),
+                                fontWeight: FontWeight.bold,
+                              )),
+                        )),
                   ],
                 ),
               ],

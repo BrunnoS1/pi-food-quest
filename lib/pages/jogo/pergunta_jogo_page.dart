@@ -1,6 +1,8 @@
 import 'dart:math';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:food_quest/services/pergunta_service.dart';
+import 'package:food_quest/services/usuario_service.dart';
 
 class PerguntaJogoPage extends StatefulWidget {
   final int initialQuestionIndex;
@@ -13,6 +15,7 @@ class PerguntaJogoPage extends StatefulWidget {
 
 class _PerguntaJogoPageState extends State<PerguntaJogoPage> {
   PerguntaService perguntaService = PerguntaService();
+  UsuarioService usuarioService = UsuarioService();
   late int currentQuestionIndex;
   late int totalPerguntas;
   int acertos = 0;
@@ -26,7 +29,8 @@ class _PerguntaJogoPageState extends State<PerguntaJogoPage> {
 
   Future<void> initializeTotalPerguntas() async {
     totalPerguntas = await perguntaService.getTotalPerguntas();
-    setState(() {}); // Reconstruir depois de definir o tamanho da lista de perguntas
+    setState(
+        () {}); // Reconstruir depois de definir o tamanho da lista de perguntas
   }
 
   bool verificaResposta(String resposta, String alternativa) {
@@ -41,6 +45,10 @@ class _PerguntaJogoPageState extends State<PerguntaJogoPage> {
   void computaResposta(String resposta, String alternativa) {
     final acertou = verificaResposta(resposta, alternativa);
     perguntaService.contAcertoErro(acertou, currentQuestionIndex, alternativa);
+    if (acertou) {
+      final user = FirebaseAuth.instance.currentUser!;
+      usuarioService.incrementaAcerto(user.email!, alternativa);
+    }
 
     // Mostrar popup de resposta correta/errada
     showDialog(
@@ -58,9 +66,13 @@ class _PerguntaJogoPageState extends State<PerguntaJogoPage> {
                   // Incrementa indice da pergunta atual e acertos local depois de fechar
                   currentQuestionIndex++;
                   if (acertou) acertos++;
-                  if (currentQuestionIndex >= totalPerguntas || currentQuestionIndex >= 10) {
+                  if (currentQuestionIndex >= totalPerguntas ||
+                      currentQuestionIndex >= 10) {
+                        //se acabarem as perguntas ou já tiver respondido mais
+                        // que 10 direcionar para a pagina de pos jogo
                     currentQuestionIndex = 0;
-                    Navigator.pushNamed(context, '/posjogo_page', arguments: (acertos, min(totalPerguntas,10)));
+                    Navigator.pushNamed(context, '/posjogo_page',
+                        arguments: (acertos, min(totalPerguntas, 10)));
                   }
                 });
               },
@@ -101,14 +113,16 @@ class _PerguntaJogoPageState extends State<PerguntaJogoPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
+                  //texto da pergunta
                   questionText,
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 16,
+                    fontSize: 26,
                   ),
                 ),
                 const SizedBox(height: 24),
                 Expanded(
+                  //4 caixas com as alternativas
                   child: Column(
                     children: [
                       Expanded(
@@ -213,4 +227,3 @@ class _PerguntaJogoPageState extends State<PerguntaJogoPage> {
     );
   }
 }
-

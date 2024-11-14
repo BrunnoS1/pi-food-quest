@@ -136,4 +136,16 @@ class PerguntaService {
       throw Exception('Erro ao remover pergunta');
     }
   }
+
+  Future<String> getTituloPergunta(String documentId) async {
+    // Pegar o documento com o id
+    DocumentSnapshot snapshot = await _db.collection('perguntas').doc(documentId).get();
+
+    // Checar se doc existe ou nao
+    if (snapshot.exists) {
+      return snapshot.get('pergunta').toString();
+    } else {
+      throw Exception('Document not found');
+    }
+  }
 }

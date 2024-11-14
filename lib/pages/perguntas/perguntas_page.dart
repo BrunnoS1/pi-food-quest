@@ -37,37 +37,39 @@ class _PerguntasPageState extends State<PerguntasPage> {
                 key: const Key("addPerguntaField"),
                 controller: controllerP,
                 keyboardType: TextInputType.text,
-                decoration: const InputDecoration(hintText: "Pergunta"),
+                decoration: const InputDecoration(labelText: "Pergunta"),
+                
               ),
               TextField(
                 key: const Key("addA1Field"),
                 controller: controllerA1,
                 keyboardType: TextInputType.text,
-                decoration: const InputDecoration(hintText: "Alternativa 1"),
+                decoration: const InputDecoration(labelText: "Alternativa 1"),
               ),
               TextField(
                 key: const Key("addA2Field"),
                 controller: controllerA2,
                 keyboardType: TextInputType.text,
-                decoration: const InputDecoration(hintText: "Alternativa 2"),
+                decoration: const InputDecoration(labelText: "Alternativa 2"),
               ),
               TextField(
                 key: const Key("addA3Field"),
                 controller: controllerA3,
                 keyboardType: TextInputType.text,
-                decoration: const InputDecoration(hintText: "Alternativa 3"),
+                decoration: const InputDecoration(labelText: "Alternativa 3"),
               ),
               TextField(
                 key: const Key("addA4Field"),
                 controller: controllerA4,
                 keyboardType: TextInputType.text,
-                decoration: const InputDecoration(hintText: "Alternativa 4"),
+                decoration: const InputDecoration(labelText: "Alternativa 4"),
               ),
               TextField(
                 key: const Key("addResField"),
                 controller: controllerResposta,
                 keyboardType: TextInputType.text,
-                decoration: const InputDecoration(hintText: "Alternativa correta (1, 2, 3, 4)"),
+                decoration: const InputDecoration(
+                    labelText: "Alternativa correta (1, 2, 3, 4)"),
               ),
             ],
           ),
@@ -83,9 +85,9 @@ class _PerguntasPageState extends State<PerguntasPage> {
                 String resposta = controllerResposta.text;
                 try {
                   await perguntaService.addPergunta(
-                       pergunta, alt1, alt2, alt3, alt4, resposta);
+                      pergunta, alt1, alt2, alt3, alt4, resposta);
                   SnackbarUtil.showSnackbar(
-                      context, 'Pergunta salva com sucesso!');
+                      context, 'Pergunta adicionada com sucesso!');
                   Navigator.of(context).pop();
                 } catch (e) {
                   // debugPrint('Erro ao adicionar pergunta: $e');
@@ -123,7 +125,7 @@ class _PerguntasPageState extends State<PerguntasPage> {
     TextEditingController controllerA4 =
         TextEditingController(text: perguntaData['alt4']);
     TextEditingController controllerResposta =
-        TextEditingController(text: perguntaData['resposta']);    
+        TextEditingController(text: perguntaData['resposta']);
 
     await showDialog(
       context: context,
@@ -138,37 +140,38 @@ class _PerguntasPageState extends State<PerguntasPage> {
                   key: const Key("editPerguntaField"),
                   controller: controllerP,
                   keyboardType: TextInputType.text,
-                  decoration: const InputDecoration(hintText: "Pergunta"),
+                  decoration: const InputDecoration(labelText: "Pergunta"),
                 ),
                 TextField(
                   key: const Key("editA1Field"),
                   controller: controllerA1,
                   keyboardType: TextInputType.text,
-                  decoration: const InputDecoration(hintText: "Alternativa 1"),
+                  decoration: const InputDecoration(labelText: "Alternativa 1"),
                 ),
                 TextField(
                   key: const Key("editA2Field"),
                   controller: controllerA2,
                   keyboardType: TextInputType.text,
-                  decoration: const InputDecoration(hintText: "Alternativa 2"),
+                  decoration: const InputDecoration(labelText: "Alternativa 2"),
                 ),
                 TextField(
                   key: const Key("editA3Field"),
                   controller: controllerA3,
                   keyboardType: TextInputType.text,
-                  decoration: const InputDecoration(hintText: "Alternativa 3"),
+                  decoration: const InputDecoration(labelText: "Alternativa 3"),
                 ),
                 TextField(
                   key: const Key("editA4Field"),
                   controller: controllerA4,
                   keyboardType: TextInputType.text,
-                  decoration: const InputDecoration(hintText: "Alternativa 4"),
+                  decoration: const InputDecoration(labelText: "Alternativa 4"),
                 ),
                 TextField(
                   key: const Key("editRespostaField"),
                   controller: controllerResposta,
                   keyboardType: TextInputType.text,
-                  decoration: const InputDecoration(hintText: "Alternativa correta (1, 2, 3, 4)"),
+                  decoration: const InputDecoration(
+                      labelText: "Alternativa correta (1, 2, 3, 4)"),
                 ),
               ],
             ),
@@ -218,7 +221,18 @@ class _PerguntasPageState extends State<PerguntasPage> {
       builder: (context) {
         return AlertDialog(
           title: const Text('Apagar pergunta'),
-          content: const Text('Deseja excluir essa pergunta?'),
+          content: FutureBuilder<String>(
+            future: perguntaService.getTituloPergunta(documentId),
+            builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const CircularProgressIndicator();
+              } else if (snapshot.hasError) {
+                return Text('Erro: ${snapshot.error}');
+              } else {
+                return Text('Deseja excluir ${snapshot.data}');
+              }
+            },
+          ),
           actions: [
             TextButton(
               onPressed: () async {

@@ -78,7 +78,7 @@ class _VerificacaoPageState extends State<VerificacaoPage> {
                 child: Center(
                   child: Text(
                     style:const TextStyle(color: Color.fromARGB(255, 255, 215, 90)),
-                    'Porque enviamos um email de confirmação para o ${auth.currentUser?.email}',
+                    'Enviamos um email de confirmação para ${auth.currentUser?.email}',
                     textAlign: TextAlign.center,
                   ),
                 ),
