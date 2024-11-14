@@ -24,6 +24,7 @@ class _PerguntasPageState extends State<PerguntasPage> {
     TextEditingController controllerA2 = TextEditingController();
     TextEditingController controllerA3 = TextEditingController();
     TextEditingController controllerA4 = TextEditingController();
+    TextEditingController controllerResposta = TextEditingController();
 
     await showDialog(
       context: context,
@@ -62,6 +63,12 @@ class _PerguntasPageState extends State<PerguntasPage> {
                 keyboardType: TextInputType.text,
                 decoration: const InputDecoration(hintText: "Alternativa 4"),
               ),
+              TextField(
+                key: const Key("addResField"),
+                controller: controllerResposta,
+                keyboardType: TextInputType.text,
+                decoration: const InputDecoration(hintText: "Alternativa correta (1, 2, 3, 4)"),
+              ),
             ],
           ),
           actions: [
@@ -73,9 +80,10 @@ class _PerguntasPageState extends State<PerguntasPage> {
                 String alt2 = controllerA2.text;
                 String alt3 = controllerA3.text;
                 String alt4 = controllerA4.text;
+                String resposta = controllerResposta.text;
                 try {
                   await perguntaService.addPergunta(
-                      pergunta, alt1, alt2, alt3, alt4);
+                       pergunta, alt1, alt2, alt3, alt4, resposta);
                   SnackbarUtil.showSnackbar(
                       context, 'Pergunta salva com sucesso!');
                   Navigator.of(context).pop();
@@ -114,6 +122,8 @@ class _PerguntasPageState extends State<PerguntasPage> {
         TextEditingController(text: perguntaData['alt3']);
     TextEditingController controllerA4 =
         TextEditingController(text: perguntaData['alt4']);
+    TextEditingController controllerResposta =
+        TextEditingController(text: perguntaData['resposta']);    
 
     await showDialog(
       context: context,
@@ -154,6 +164,12 @@ class _PerguntasPageState extends State<PerguntasPage> {
                   keyboardType: TextInputType.text,
                   decoration: const InputDecoration(hintText: "Alternativa 4"),
                 ),
+                TextField(
+                  key: const Key("editRespostaField"),
+                  controller: controllerResposta,
+                  keyboardType: TextInputType.text,
+                  decoration: const InputDecoration(hintText: "Alternativa correta (1, 2, 3, 4)"),
+                ),
               ],
             ),
           ),
@@ -166,10 +182,11 @@ class _PerguntasPageState extends State<PerguntasPage> {
                 String alt2 = controllerA2.text;
                 String alt3 = controllerA3.text;
                 String alt4 = controllerA4.text;
+                String resposta = controllerResposta.text;
                 try {
                   // Atualiza a pergunta no Firestore com o documentId
                   await perguntaService.editPergunta(perguntaData['documentId'],
-                      pergunta, alt1, alt2, alt3, alt4);
+                      pergunta, alt1, alt2, alt3, alt4, resposta);
                   SnackbarUtil.showSnackbar(
                       context, 'Pergunta editada com sucesso!');
                   Navigator.of(context).pop();

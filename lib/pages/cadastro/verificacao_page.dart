@@ -62,34 +62,36 @@ class _VerificacaoPageState extends State<VerificacaoPage> {
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 60),
+              const SizedBox(height: 120),
               const Center(
                 child: Text(
-                  'Verifique seu email',
+                  'Verifique o seu email',
                   textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white, fontSize: 24),
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 16),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32.0),
                 child: Center(
                   child: Text(
                     style:const TextStyle(color: Color.fromARGB(255, 255, 215, 90)),
-                    'Enviamos um email de confirmação para ${auth.currentUser?.email}',
+                    'Porque enviamos um email de confirmação para o ${auth.currentUser?.email}',
                     textAlign: TextAlign.center,
                   ),
                 ),
               ),
-              const SizedBox(height: 16),
-              const Center(child: CircularProgressIndicator()),
+              const SizedBox(height: 50),
+              const Center(child: CircularProgressIndicator(color: Color.fromARGB(255, 220, 15, 75))),
               const SizedBox(height: 50),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255,255,215,90)),
+                  style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 220, 15, 75)),
                   // ( Color.fromARGB(255, 255, 215, 90)),
-                  child: const Text(style:TextStyle(color: Color.fromARGB(255, 220, 15, 75), fontWeight: FontWeight.bold),'Reenviar e-mail'),
+                  child: const Text(style:TextStyle(color: Color.fromARGB(255,255,215,90), fontWeight: FontWeight.bold),'Reenviar e-mail'),
                   
                   onPressed: () {
                     try {

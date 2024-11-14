@@ -9,11 +9,11 @@ class SnackbarUtil {
         children: [
           Icon(
             isError ? Icons.error_outline : Icons.check_circle_outline_rounded,
-            color: Colors.white,
+            color: Colors.black,
             size: 18,
           ),
           const SizedBox(width: 4),
-          Text(message, style: const TextStyle(color: Colors.white, fontSize: 18),),
+          Text(message, style: const TextStyle(color: Colors.black, fontSize: 18),),
         ],
       ),
       backgroundColor: isError ? Colors.red[400] : const Color.fromARGB(255, 255, 215, 90),
