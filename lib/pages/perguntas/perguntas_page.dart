@@ -38,7 +38,6 @@ class _PerguntasPageState extends State<PerguntasPage> {
                 controller: controllerP,
                 keyboardType: TextInputType.text,
                 decoration: const InputDecoration(labelText: "Pergunta"),
-                
               ),
               TextField(
                 key: const Key("addA1Field"),
@@ -110,6 +109,12 @@ class _PerguntasPageState extends State<PerguntasPage> {
         );
       },
     );
+  }
+
+  void _visualizarPergunta(
+      BuildContext context, Map<String, dynamic> perguntaData) async {
+    Navigator.pushNamed(context, '/visualizar_pergunta',
+        arguments: perguntaData);
   }
 
   Future<void> _editPergunta(
@@ -305,7 +310,8 @@ class _PerguntasPageState extends State<PerguntasPage> {
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   onTap: () async {
-                    await _editPergunta(context, perguntaData);
+                    // await _editPergunta(context, perguntaData);
+                    _visualizarPergunta(context, perguntaData);
                   },
                   onLongPress: () async {
                     try {
