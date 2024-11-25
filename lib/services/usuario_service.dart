@@ -18,6 +18,7 @@ class UsuarioService {
   }
 
   Stream<String?> getNome(String documentId) {
+    //retorna o campo nome do usuario
     return _db
         .collection('Usuarios')
         .doc(documentId)
@@ -28,6 +29,7 @@ class UsuarioService {
   }
 
   Future<void> sendVerificationEmail() async {
+    //envia email de verificaçao (firebase)
     try {
       await _auth.currentUser?.sendEmailVerification();
     } catch (e) {

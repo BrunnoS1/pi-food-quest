@@ -46,6 +46,7 @@ class _PerguntaJogoPageState extends State<PerguntaJogoPage> {
     final acertou = verificaResposta(resposta, alternativa);
     perguntaService.contAcertoErro(acertou, currentQuestionIndex, alternativa);
     if (acertou) {
+      //se acertou chamar funcao para incrementar o acerto no firestore
       final user = FirebaseAuth.instance.currentUser!;
       usuarioService.incrementaAcerto(user.email!, alternativa);
     }
@@ -69,7 +70,7 @@ class _PerguntaJogoPageState extends State<PerguntaJogoPage> {
                   if (currentQuestionIndex >= totalPerguntas ||
                       currentQuestionIndex >= 10) {
                         //se acabarem as perguntas ou já tiver respondido mais
-                        // que 10 direcionar para a pagina de pos jogo
+                        // que 10 encerrar a partida e ir ao pos jogo
                     currentQuestionIndex = 0;
                     Navigator.pushNamed(context, '/posjogo_page',
                         arguments: (acertos, min(totalPerguntas, 10)));
@@ -98,7 +99,7 @@ class _PerguntaJogoPageState extends State<PerguntaJogoPage> {
             return const Center(child: Text("Erro ao carregar pergunta"));
           }
 
-          //Dados da snapshot
+          //Dados da snapshot (pergunta)
           final data = snapshot.data!;
           final questionText = data['pergunta'] ?? '';
           final yellowText = data['alt1'] ?? '';
@@ -123,6 +124,7 @@ class _PerguntaJogoPageState extends State<PerguntaJogoPage> {
                 const SizedBox(height: 24),
                 Expanded(
                   //4 caixas com as alternativas
+                  //cada uma chama a funcao computaResposta quando clicada
                   child: Column(
                     children: [
                       Expanded(
@@ -132,7 +134,6 @@ class _PerguntaJogoPageState extends State<PerguntaJogoPage> {
                               child: GestureDetector(
                                 onTap: () {
                                   computaResposta(resposta, '1');
-                                  print("Yellow box tapped");
                                 },
                                 child: Container(
                                   color: Colors.yellow,
@@ -152,7 +153,6 @@ class _PerguntaJogoPageState extends State<PerguntaJogoPage> {
                               child: GestureDetector(
                                 onTap: () {
                                   computaResposta(resposta, '2');
-                                  print("Red box tapped");
                                 },
                                 child: Container(
                                   color: Colors.red,
@@ -178,7 +178,6 @@ class _PerguntaJogoPageState extends State<PerguntaJogoPage> {
                               child: GestureDetector(
                                 onTap: () {
                                   computaResposta(resposta, '3');
-                                  print("Green box tapped");
                                 },
                                 child: Container(
                                   color: Colors.green,
@@ -198,7 +197,6 @@ class _PerguntaJogoPageState extends State<PerguntaJogoPage> {
                               child: GestureDetector(
                                 onTap: () {
                                   computaResposta(resposta, '4');
-                                  print("Blue box tapped");
                                 },
                                 child: Container(
                                   color: Colors.blue,

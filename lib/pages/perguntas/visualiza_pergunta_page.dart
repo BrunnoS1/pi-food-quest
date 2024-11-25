@@ -19,12 +19,14 @@ class _VisualizaPerguntaPageState extends State<VisualizaPerguntaPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // Retrieve the initial pergunta data from arguments
+    // pegar os dados da pergunta pelos argumentos da rota
     perguntaData ??= ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
   }
 
   Future<void> _editPergunta(
       BuildContext context, Map<String, dynamic> perguntaData) async {
+        //controllers pros campos de texto, todos preenchidos
+        //com os dados da pergunta
     TextEditingController controllerP =
         TextEditingController(text: perguntaData['pergunta']);
     TextEditingController controllerA1 =
@@ -91,6 +93,7 @@ class _VisualizaPerguntaPageState extends State<VisualizaPerguntaPage> {
             TextButton(
               key: const Key("salvarEdicaoButton"),
               onPressed: () async {
+                //textos dos textfields
                 String pergunta = controllerP.text;
                 String alt1 = controllerA1.text;
                 String alt2 = controllerA2.text;
@@ -99,11 +102,11 @@ class _VisualizaPerguntaPageState extends State<VisualizaPerguntaPage> {
                 String resposta = controllerResposta.text;
 
                 try {
-                  // Update the question in Firestore
+                  // Atualiza pergunta no firestore
                   await perguntaService.editPergunta(perguntaData['documentId'],
                       pergunta, alt1, alt2, alt3, alt4, resposta);
 
-                  // Update local perguntaData and refresh the view
+                  // atualiza perguntadata pra atualizar a tela
                   setState(() {
                     this.perguntaData = {
                       ...perguntaData,
@@ -130,6 +133,7 @@ class _VisualizaPerguntaPageState extends State<VisualizaPerguntaPage> {
                   const Text('Salvar', style: TextStyle(color: Colors.black)),
             ),
             TextButton(
+              //botao de cancelar
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -155,6 +159,8 @@ class _VisualizaPerguntaPageState extends State<VisualizaPerguntaPage> {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView(
+          // listview com todos os atributos da pergunta
+          // exibe 'N/A' ou 0 para atributos faltantes
           children: [
             const Text(
               'Pergunta:',

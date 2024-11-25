@@ -19,6 +19,7 @@ class _PerguntasPageState extends State<PerguntasPage> {
   final user = FirebaseAuth.instance.currentUser!;
 
   Future<void> _addPergunta() async {
+    //controllers para os campos de adicionar pergunta
     TextEditingController controllerP = TextEditingController();
     TextEditingController controllerA1 = TextEditingController();
     TextEditingController controllerA2 = TextEditingController();
@@ -30,6 +31,7 @@ class _PerguntasPageState extends State<PerguntasPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
+          //popup com os campos para add
           title: const Text('Adicionar pergunta'),
           content: Column(
             children: [
@@ -76,6 +78,7 @@ class _PerguntasPageState extends State<PerguntasPage> {
             TextButton(
               key: const Key("salvarButton"),
               onPressed: () async {
+                //pegar os atributos dos textfields e add pergunta
                 String pergunta = controllerP.text;
                 String alt1 = controllerA1.text;
                 String alt2 = controllerA2.text;
@@ -99,6 +102,7 @@ class _PerguntasPageState extends State<PerguntasPage> {
                   const Text('Salvar', style: TextStyle(color: Colors.black)),
             ),
             TextButton(
+              //botao cancelar
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -112,115 +116,15 @@ class _PerguntasPageState extends State<PerguntasPage> {
   }
 
   void _visualizarPergunta(
+    //funcao para redirecionar pra pagina com detalhes da pergunta clicada
+    //passa os dados da pergunta como argumento para a proxima pagina
       BuildContext context, Map<String, dynamic> perguntaData) async {
     Navigator.pushNamed(context, '/visualizar_pergunta',
         arguments: perguntaData);
   }
 
-  Future<void> _editPergunta(
-      BuildContext context, Map<String, dynamic> perguntaData) async {
-    TextEditingController controllerP =
-        TextEditingController(text: perguntaData['pergunta']);
-    TextEditingController controllerA1 =
-        TextEditingController(text: perguntaData['alt1']);
-    TextEditingController controllerA2 =
-        TextEditingController(text: perguntaData['alt2']);
-    TextEditingController controllerA3 =
-        TextEditingController(text: perguntaData['alt3']);
-    TextEditingController controllerA4 =
-        TextEditingController(text: perguntaData['alt4']);
-    TextEditingController controllerResposta =
-        TextEditingController(text: perguntaData['resposta']);
-
-    await showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Editar pergunta'),
-          content: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextField(
-                  key: const Key("editPerguntaField"),
-                  controller: controllerP,
-                  keyboardType: TextInputType.text,
-                  decoration: const InputDecoration(labelText: "Pergunta"),
-                ),
-                TextField(
-                  key: const Key("editA1Field"),
-                  controller: controllerA1,
-                  keyboardType: TextInputType.text,
-                  decoration: const InputDecoration(labelText: "Alternativa 1"),
-                ),
-                TextField(
-                  key: const Key("editA2Field"),
-                  controller: controllerA2,
-                  keyboardType: TextInputType.text,
-                  decoration: const InputDecoration(labelText: "Alternativa 2"),
-                ),
-                TextField(
-                  key: const Key("editA3Field"),
-                  controller: controllerA3,
-                  keyboardType: TextInputType.text,
-                  decoration: const InputDecoration(labelText: "Alternativa 3"),
-                ),
-                TextField(
-                  key: const Key("editA4Field"),
-                  controller: controllerA4,
-                  keyboardType: TextInputType.text,
-                  decoration: const InputDecoration(labelText: "Alternativa 4"),
-                ),
-                TextField(
-                  key: const Key("editRespostaField"),
-                  controller: controllerResposta,
-                  keyboardType: TextInputType.text,
-                  decoration: const InputDecoration(
-                      labelText: "Alternativa correta (1, 2, 3, 4)"),
-                ),
-              ],
-            ),
-          ),
-          actions: [
-            TextButton(
-              key: const Key("salvarEdicaoButton"),
-              onPressed: () async {
-                String pergunta = controllerP.text;
-                String alt1 = controllerA1.text;
-                String alt2 = controllerA2.text;
-                String alt3 = controllerA3.text;
-                String alt4 = controllerA4.text;
-                String resposta = controllerResposta.text;
-                try {
-                  // Atualiza a pergunta no Firestore com o documentId
-                  await perguntaService.editPergunta(perguntaData['documentId'],
-                      pergunta, alt1, alt2, alt3, alt4, resposta);
-                  SnackbarUtil.showSnackbar(
-                      context, 'Pergunta editada com sucesso!');
-                  Navigator.of(context).pop();
-                } catch (e) {
-                  SnackbarUtil.showSnackbar(
-                      context, 'Erro ao editar a pergunta',
-                      isError: true);
-                }
-              },
-              child:
-                  const Text('Salvar', style: TextStyle(color: Colors.black)),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child:
-                  const Text('Cancelar', style: TextStyle(color: Colors.black)),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   Future<void> _removePergunta(BuildContext context, String documentId) async {
+    //funcao para apagar uma pergunta (quando segurar nela na lista)
     await showDialog(
       context: context,
       builder: (context) {
@@ -234,6 +138,7 @@ class _PerguntasPageState extends State<PerguntasPage> {
               } else if (snapshot.hasError) {
                 return Text('Erro: ${snapshot.error}');
               } else {
+                //mostrar a pergunta no popup para evitar exclusao errada
                 return Text('Deseja excluir ${snapshot.data}');
               }
             },
@@ -297,6 +202,7 @@ class _PerguntasPageState extends State<PerguntasPage> {
           List<Map<String, dynamic>> perguntaList = snapshot.data!;
 
           return ListView.builder(
+            //listview com todas as perguntas cadastradas
             itemCount: perguntaList.length,
             itemBuilder: (context, index) {
               var perguntaData = perguntaList[index];
@@ -310,7 +216,6 @@ class _PerguntasPageState extends State<PerguntasPage> {
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   onTap: () async {
-                    // await _editPergunta(context, perguntaData);
                     _visualizarPergunta(context, perguntaData);
                   },
                   onLongPress: () async {
