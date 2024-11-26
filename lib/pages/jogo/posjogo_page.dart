@@ -5,13 +5,15 @@ class PosJogoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //message recebe os argumentos do navigator (int, int)
+    //é o numero de acertos e o total de perguntas da partida
     final (int, int) message =
         ModalRoute.of(context)!.settings.arguments as (int, int);
-    debugPrint('message\$1 = ${message.$1} // message\$2 = ${message.$2}');
     return Scaffold(
         body: Center(
             child: Column(
       children: [
+        //message.$1 pega o primeiro int dos argumentos, $2 pega o segundo
         Text('Voce acertou ${message.$1} de ${message.$2} perguntas'),
         const SizedBox(
           height: 25,
