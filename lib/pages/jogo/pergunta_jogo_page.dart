@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,8 @@ class _PerguntaJogoPageState extends State<PerguntaJogoPage> {
   late int totalPerguntas;
   int acertos = 0;
 
+  late Timer _timer;
+
   @override
   void initState() {
     super.initState();
@@ -29,29 +32,17 @@ class _PerguntaJogoPageState extends State<PerguntaJogoPage> {
 
   Future<void> initializeTotalPerguntas() async {
     totalPerguntas = await perguntaService.getTotalPerguntas();
-    setState(
-        () {}); // Reconstruir depois de definir o tamanho da lista de perguntas
-  }
-
-  bool verificaResposta(String resposta, String alternativa) {
-    if (alternativa == resposta) {
-      debugPrint('acertou');
-      return true;
-    }
-    debugPrint('errou');
-    return false;
+    setState(() {}); // Rebuild depois de pegar as perguntas
   }
 
   void computaResposta(String resposta, String alternativa) {
-    final acertou = verificaResposta(resposta, alternativa);
+    final acertou = alternativa == resposta;
     perguntaService.contAcertoErro(acertou, currentQuestionIndex, alternativa);
     if (acertou) {
-      //se acertou chamar funcao para incrementar o acerto no firestore
       final user = FirebaseAuth.instance.currentUser!;
       usuarioService.incrementaAcerto(user.email!, alternativa);
     }
 
-    // Mostrar popup de resposta correta/errada
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -62,15 +53,45 @@ class _PerguntaJogoPageState extends State<PerguntaJogoPage> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Fecha o popup
+                Navigator.of(context).pop();
                 setState(() {
-                  // Incrementa indice da pergunta atual e acertos local depois de fechar
+                  //aumenta o indice da pergunta atual, incrementar
+                  //acertos e se tiver passado do limite ir ao posjogo
                   currentQuestionIndex++;
                   if (acertou) acertos++;
                   if (currentQuestionIndex >= totalPerguntas ||
                       currentQuestionIndex >= 10) {
-                        //se acabarem as perguntas ou já tiver respondido mais
-                        // que 10 encerrar a partida e ir ao pos jogo
+                    Navigator.pushNamed(context, '/posjogo_page',
+                        arguments: (acertos, min(totalPerguntas, 10)));
+                  }
+                });
+              },
+              child: const Text("OK"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void timeout() {
+    //funcao para trocar de pergunta apos o timer
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Acabou o tempo!"),
+          content:
+              const Text("Tempo esgotado, atenção para a próxima pergunta!"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                setState(() {
+                  //aumentar o indice para mudar a pergunta
+                  currentQuestionIndex++;
+                  if (currentQuestionIndex >= totalPerguntas ||
+                      currentQuestionIndex >= 10) {
                     currentQuestionIndex = 0;
                     Navigator.pushNamed(context, '/posjogo_page',
                         arguments: (acertos, min(totalPerguntas, 10)));
@@ -99,7 +120,6 @@ class _PerguntaJogoPageState extends State<PerguntaJogoPage> {
             return const Center(child: Text("Erro ao carregar pergunta"));
           }
 
-          //Dados da snapshot (pergunta)
           final data = snapshot.data!;
           final questionText = data['pergunta'] ?? '';
           final yellowText = data['alt1'] ?? '';
@@ -113,8 +133,14 @@ class _PerguntaJogoPageState extends State<PerguntaJogoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                CountdownTimer(
+                  //timer para a pergunta
+                  key: ValueKey(currentQuestionIndex),
+                  duration: 60,
+                  onTimeout: timeout,
+                ),
+                const SizedBox(height: 16),
                 Text(
-                  //texto da pergunta
                   questionText,
                   style: const TextStyle(
                     color: Colors.white,
@@ -123,8 +149,6 @@ class _PerguntaJogoPageState extends State<PerguntaJogoPage> {
                 ),
                 const SizedBox(height: 24),
                 Expanded(
-                  //4 caixas com as alternativas
-                  //cada uma chama a funcao computaResposta quando clicada
                   child: Column(
                     children: [
                       Expanded(
@@ -221,6 +245,60 @@ class _PerguntaJogoPageState extends State<PerguntaJogoPage> {
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class CountdownTimer extends StatefulWidget {
+  //classe para criar o timer, só é usada dentro dessa pagina
+  final int duration;
+  final VoidCallback onTimeout;
+
+  const CountdownTimer(
+      {super.key, required this.duration, required this.onTimeout});
+
+  @override
+  State<CountdownTimer> createState() => _CountdownTimerState();
+}
+
+class _CountdownTimerState extends State<CountdownTimer> {
+  late int _remainingTime;
+  late Timer _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _remainingTime = widget.duration;
+    _startTimer();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
+
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_remainingTime > 0) {
+        setState(() {
+          _remainingTime--;
+        });
+      } else {
+        timer.cancel();
+        widget.onTimeout();
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      "Tempo restante: $_remainingTime",
+      style: const TextStyle(
+        color: Colors.white,
+        fontSize: 20,
       ),
     );
   }
