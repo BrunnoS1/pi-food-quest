@@ -92,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                 MyTextField(
                   key: const Key("passfield"),
                   controller: passwordController,
-                  hintText: "password",
+                  hintText: "senha",
                   obscureText: true,
                 ),
 
@@ -126,7 +126,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 const SizedBox(height: 25),
           
-                // New user sign up option
+                // sign up novo usuario
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

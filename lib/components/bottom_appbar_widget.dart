@@ -24,46 +24,49 @@ class _BottomAppBarWidgetState extends State<BottomAppBarWidget> {
             children: [
               // Texto "Sobre nós" à esquerda
               Flexible(
-                child: GestureDetector(
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          backgroundColor: const Color.fromARGB(
-                              255, 75, 75, 75), // Cor de fundo da interface
-                          title: const Text(
-                            "Sobre nós",
-                            style: TextStyle(
-                                color: Colors.white), // Cor do texto do título
-                          ),
-                          content: const Text(
-                            "Somos alunos de Ciência da Computação e criamos este jogo didático sobre o sistema "
-                            "digestório para tornar o aprendizado mais acessível e divertido. Nossa meta é ajudar estudantes a "
-                            "entender melhor o funcionamento do sistema digestório com perguntas interativas e conteúdo "
-                            "educativo. Aproveite o jogo e aprenda de forma divertida!",
-                            style: TextStyle(
-                                color: Colors.white), // Cor do texto do conteúdo
-                          ),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: const Text('Fechar'),
+                child: MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: GestureDetector(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            backgroundColor: const Color.fromARGB(
+                                255, 75, 75, 75), // Cor de fundo da interface
+                            title: const Text(
+                              "Sobre nós",
+                              style: TextStyle(
+                                  color: Colors.white), // Cor do texto do título
                             ),
-                          ],
-                        );
-                      },
-                    );
-                  },
-                  child: const FittedBox(
-                    fit: BoxFit.scaleDown, // Shrink the text if needed
-                    child: Text(
-                      "Sobre nós",
-                      style: TextStyle(
-                        color: Colors.white, // Cor do texto "Sobre nós"
-                        fontSize: 14,
+                            content: const Text(
+                              "Somos alunos de Ciência da Computação e criamos este jogo didático sobre o sistema "
+                              "digestório para tornar o aprendizado mais acessível e divertido. Nossa meta é ajudar estudantes a "
+                              "entender melhor o funcionamento do sistema digestório com perguntas interativas e conteúdo "
+                              "educativo. Aproveite o jogo e aprenda de forma divertida!",
+                              style: TextStyle(
+                                  color: Colors.white), // Cor do texto do conteúdo
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text('Fechar'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    child: const FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        "Sobre nós",
+                        style: TextStyle(
+                          color: Colors.white, // Cor do texto "Sobre nós"
+                          fontSize: 14,
+                        ),
                       ),
                     ),
                   ),
