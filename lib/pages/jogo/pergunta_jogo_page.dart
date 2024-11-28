@@ -42,31 +42,70 @@ class _PerguntaJogoPageState extends State<PerguntaJogoPage> {
       final user = FirebaseAuth.instance.currentUser!;
       usuarioService.incrementaAcerto(user.email!, alternativa);
     }
-
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(acertou ? "Acertou!" : "Errou!"),
+          backgroundColor: const Color.fromARGB(255, 75, 75, 75),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20), // Bordas arredondadas
+          ),
+          title: Row(
+            children: [
+              Icon(
+                acertou ? Icons.emoji_events : Icons.close,
+                color: acertou ? Colors.green[700] : Colors.red[700],
+                size: 30,
+              ),
+              const SizedBox(width: 10),
+              Text(
+                acertou ? "Parabéns!" : "Que pena!",
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+            ],
+          ),
           content: Text(
-              acertou ? "Você acertou a resposta!" : "Resposta incorreta."),
+            acertou
+                ? "Você acertou a resposta! Continue assim."
+                : "Você errou. Não desista, a próxima você acerta!",
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          actionsAlignment: MainAxisAlignment.center,
           actions: [
-            TextButton(
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: acertou ? Colors.green : Colors.red,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
                 setState(() {
-                  //aumenta o indice da pergunta atual, incrementar
-                  //acertos e se tiver passado do limite ir ao posjogo
                   currentQuestionIndex++;
                   if (acertou) acertos++;
                   if (currentQuestionIndex >= totalPerguntas ||
                       currentQuestionIndex >= 10) {
-                    Navigator.pushNamed(context, '/posjogo_page',
-                        arguments: (acertos, min(totalPerguntas, 10)));
+                    Navigator.pushNamed(
+                      context,
+                      '/posjogo_page',
+                      arguments: (acertos, min(totalPerguntas, 10)),
+                    );
                   }
                 });
               },
-              child: const Text("OK"),
+              child: const Text(
+                "Continuar",
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ],
         );
@@ -75,30 +114,71 @@ class _PerguntaJogoPageState extends State<PerguntaJogoPage> {
   }
 
   void timeout() {
-    //funcao para trocar de pergunta apos o timer
+    // Função para trocar de pergunta após o tempo
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Acabou o tempo!"),
-          content:
-              const Text("Tempo esgotado, atenção para a próxima pergunta!"),
+          backgroundColor: const Color.fromARGB(255, 75, 75, 75),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          title: const Row(
+            children: [
+              Icon(
+                Icons.timer_off,
+                color: Color.fromARGB(255, 220, 15, 75),
+                size: 30,
+              ),
+              SizedBox(width: 10),
+              Text(
+                "Acabou o tempo!",
+                style: TextStyle(
+                  color: Color.fromARGB(255, 220, 15, 75),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          content: const Text(
+            "Tempo esgotado! Prepare-se para a próxima pergunta.",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          actionsAlignment: MainAxisAlignment.center,
           actions: [
-            TextButton(
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color.fromARGB(255, 220, 15, 75),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
                 setState(() {
-                  //aumentar o indice para mudar a pergunta
                   currentQuestionIndex++;
                   if (currentQuestionIndex >= totalPerguntas ||
                       currentQuestionIndex >= 10) {
                     currentQuestionIndex = 0;
-                    Navigator.pushNamed(context, '/posjogo_page',
-                        arguments: (acertos, min(totalPerguntas, 10)));
+                    Navigator.pushNamed(
+                      context,
+                      '/posjogo_page',
+                      arguments: (acertos, min(totalPerguntas, 10)),
+                    );
                   }
                 });
               },
-              child: const Text("OK"),
+              child: const Text(
+                "OK",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                ),
+              ),
             ),
           ],
         );
@@ -110,7 +190,7 @@ class _PerguntaJogoPageState extends State<PerguntaJogoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[900],
-      body: FutureBuilder<Map<String, dynamic>?>(
+      body: FutureBuilder<Map<String, dynamic>?>( // Carregando as perguntas
         future: PerguntaService().getPerguntaIndex(currentQuestionIndex),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -134,7 +214,6 @@ class _PerguntaJogoPageState extends State<PerguntaJogoPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CountdownTimer(
-                  //timer para a pergunta
                   key: ValueKey(currentQuestionIndex),
                   duration: 60,
                   onTimeout: timeout,
@@ -249,6 +328,7 @@ class _PerguntaJogoPageState extends State<PerguntaJogoPage> {
     );
   }
 }
+
 
 class CountdownTimer extends StatefulWidget {
   //classe para criar o timer, só é usada dentro dessa pagina

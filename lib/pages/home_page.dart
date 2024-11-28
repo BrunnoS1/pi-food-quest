@@ -273,16 +273,10 @@ class _HomePageState extends State<HomePage> {
                                             if (states.contains(
                                                 WidgetState.pressed)) {
                                               return const Color.fromRGBO(
-                                                  255,
-                                                  215,
-                                                  90,
-                                                  1); // Cor do texto quando pressionado
+                                                  255,215,90,1); // Cor do texto quando pressionado
                                             }
                                             return const Color.fromARGB(
-                                                255,
-                                                220,
-                                                15,
-                                                75); // Cor do texto padrão
+                                                255,220,15,75); // Cor do texto padrão
                                           },
                                         ),
                                       ),
