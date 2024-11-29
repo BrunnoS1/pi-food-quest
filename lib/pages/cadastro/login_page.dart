@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:food_quest/components/bottom_appbar_widget.dart';
 import 'package:food_quest/components/my_button.dart';
 import 'package:food_quest/components/my_textfield.dart';
+import 'package:food_quest/pages/cadastro/forgot_password_page.dart';
 
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
@@ -99,17 +100,31 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 25),
 
                 // Forget password
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        "Esqueceu a senha?",
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 255, 255, 255),
+                      MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ForgotPasswordPage(),
+                              ),
+                            );
+                          },
+                          child: const Text(
+                            "Esqueceu a senha?",
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 255, 255, 255),
+                            ),
+                          ),
                         ),
                       ),
+
                     ],
                   ),
                 ),
