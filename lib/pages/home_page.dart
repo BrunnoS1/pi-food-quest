@@ -32,10 +32,11 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              const SizedBox(height: 70),
               // Logo na parte de cima da tela
               const Image(
                 image: AssetImage('assets/images/logo-FoodQuest.png'),
-                height: 100, // Ajuste o tamanho como necessário
+                height: 100,
               ),
 
               const SizedBox(height: 200),
