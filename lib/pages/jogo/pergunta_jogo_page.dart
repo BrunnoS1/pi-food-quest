@@ -21,7 +21,6 @@ class _PerguntaJogoPageState extends State<PerguntaJogoPage> {
   late int totalPerguntas;
   int acertos = 0;
 
-  late Timer _timer;
 
   @override
   void initState() {
@@ -189,7 +188,7 @@ class _PerguntaJogoPageState extends State<PerguntaJogoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[900],
+      backgroundColor: const Color.fromARGB(255, 75, 75, 75),
       body: FutureBuilder<Map<String, dynamic>?>( // Carregando as perguntas
         future: PerguntaService().getPerguntaIndex(currentQuestionIndex),
         builder: (context, snapshot) {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:food_quest/pages/cadastro/auth_page.dart';
 import 'package:food_quest/routes.dart';
+import 'package:food_quest/services/audio_manager.dart'; // Importar o gerenciador de áudio
 import 'firebase_options.dart';
 
 void main() async {
@@ -10,6 +11,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  await AudioManager.initialize(); // Inicializar o player de áudio
+
   runApp(const MyApp());
 }
 
@@ -21,7 +25,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: const AuthPage(),
-      // home: const PerguntaIngamePage(pergunta: 'pergunta'),
       routes: rotas,
     );
   }

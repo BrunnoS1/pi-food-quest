@@ -4,6 +4,7 @@ import 'package:food_quest/components/bottom_appbar_widget.dart';
 import 'package:food_quest/components/my_button.dart';
 import 'package:food_quest/components/my_textfield.dart';
 import 'package:food_quest/pages/cadastro/forgot_password_page.dart';
+import 'package:food_quest/services/audio_manager.dart';
 
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
@@ -20,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
 
   // sign in function
   void signUserIn() async {
-    // Show loading circle
+    // Mostrar indicador de carregamento
     showDialog(
         context: context,
         builder: (context) {
@@ -30,21 +31,24 @@ class _LoginPageState extends State<LoginPage> {
           );
         });
 
-    // Attempt sign in
+    // Tentar fazer login
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
       );
 
-      // Dismiss loading circle
+      // Iniciar a música após login bem-sucedido
+      AudioManager.player.play();
+
+      // Fechar o indicador de carregamento
       Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
-      // Dismiss loading circle
       e.stackTrace;
+      // Fechar o indicador de carregamento
       Navigator.pop(context);
 
-      // Show error message
+      // Mostrar mensagem de erro
       showErrorMessage();
     }
   }
@@ -77,7 +81,8 @@ class _LoginPageState extends State<LoginPage> {
                   height: 100, // Ajuste o tamanho como necessário
                 ),
 
-                const SizedBox(height: 50),  // Espaço entre a logo e o campo de email
+                const SizedBox(
+                    height: 50), // Espaço entre a logo e o campo de email
 
                 // Email text field
                 MyTextField(
@@ -124,7 +129,6 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                       ),
-
                     ],
                   ),
                 ),
@@ -133,28 +137,30 @@ class _LoginPageState extends State<LoginPage> {
 
                 //botao login
                 MouseRegion(
-                    cursor: SystemMouseCursors.click,
-                    child: MyButton(
-                        key: const Key("botaologin"),
-                        onTap: signUserIn,
-                        text: "Login"),
-                  ),
+                  cursor: SystemMouseCursors.click,
+                  child: MyButton(
+                      key: const Key("botaologin"),
+                      onTap: signUserIn,
+                      text: "Login"),
+                ),
                 const SizedBox(height: 25),
-          
+
                 // sign up novo usuario
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
                       'Ainda não cadastrado?',
-                      style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
+                      style:
+                          TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
                     ),
                     const SizedBox(width: 4),
                     GestureDetector(
                       key: const Key("cadastrese"),
                       onTap: widget.onTap,
                       child: const MouseRegion(
-                        cursor: SystemMouseCursors.click, // Define o cursor de mão
+                        cursor:
+                            SystemMouseCursors.click, // Define o cursor de mão
                         child: Text(
                           "Cadastre-se agora",
                           style: TextStyle(
@@ -164,8 +170,6 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-
-                    
                   ],
                 ),
                 const SizedBox(height: 50),
